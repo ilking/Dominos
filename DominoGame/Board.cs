@@ -15,10 +15,10 @@ namespace DominoGame
     public Board(int x, int y) {
       Cells = new List<List<Cell>>();
       
-      for (int a = 0; a <= y; a++) {
+      for (int a = 0; a < x; a++) {
         List<Cell> row = new List<Cell>();
-        for (int b = 0; b <= x; b++){
-          row.Add(new Cell(b,a));
+        for (int b = 0; b < y; b++){
+          row.Add(new Cell(a,b));
         }
         Cells.Add(row);
       }
@@ -28,7 +28,7 @@ namespace DominoGame
     }
 
     public Cell CellAt(int x, int y) {
-      if (x >= Height || x < 0 || y >= Width || y < 0) {
+      if (x >= Width || x < 0 || y >= Height || y < 0) {
         return null;
       }
       
@@ -51,9 +51,11 @@ namespace DominoGame
     }
     
     public void PlaceDomino(Cell cell1, Cell cell2, Domino domino) {
-      cell1.Domino = domino;
-      cell2.Domino = domino;
-      CoveredCells += 2;
+      if (!cell1.IsOccupied() && !cell2.IsOccupied()) {
+        cell1.Domino = domino;
+        cell2.Domino = domino;
+        CoveredCells += 2;
+      }
     }
     
     public List<Cell> Neighbors(Cell cell) {
@@ -74,7 +76,17 @@ namespace DominoGame
     }
     
     public List<Cell> OccupiedNeighbors(Cell cell) {
-       return Neighbors(cell).Where(c => c.IsOccupied()).ToList();
+      return Neighbors(cell).Where(c => c.IsOccupied()).ToList();
+    }
+    
+    public override string ToString() {
+      string res = "";
+      foreach (List<Cell> list in Cells) {
+        res += string.Join(" ", list);
+        res += "\r\n";
+      }
+      
+      return res;
     }
   }
 }

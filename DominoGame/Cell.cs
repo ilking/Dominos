@@ -28,11 +28,11 @@ namespace DominoGame
     
     public bool IsOccupied()
     {
-      return _domino == null;
+      return _domino != null;
     }
     
     public override string ToString() {
-      return "[ " + Pips + (IsOccupied() ? "Occupied" : "Empty") + " ]";
+      return "[ " + Pips +  (IsOccupied() ? "*" : " ") + " ]";
     }
   }
 }

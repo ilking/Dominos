@@ -11,8 +11,9 @@ namespace DominoGame
     public override void Parse(List<List<int>> input) {
       board = new Board(input.Count, input[0].Count);
       
-      for (int x = 0; x < board.Height; x++) {
-        for (int y = 0; y < board.Width; y++) {
+      // Populate board with all input pips.
+      for (int x = 0; x < board.Width; x++) {
+        for (int y = 0; y < board.Height; y++) {
           int pips = input[x][y];
           
           List<Direction> dirs_to_check = new List<Direction>();
@@ -27,11 +28,12 @@ namespace DominoGame
           }
           if (board.CellAt(x,y+1) != null) {
             dirs_to_check.Add(Direction.DOWN);
-           }
-  
+          }
+            
           if (CanPlacePip(dirs_to_check, x, y, pips)) {
             board.CellAt(x,y).Pips = pips;
           }
+          
           Cell cell = board.CellAt(x,y);
           if (cell.Pips > 0 && AtLeastOneNeighbor(dirs_to_check, x, y)) {
             foreach (var d in dirs_to_check) {
@@ -43,6 +45,8 @@ namespace DominoGame
             }
           }
         }
+        
+        Console.WriteLine(board);
       }
     } 
   }

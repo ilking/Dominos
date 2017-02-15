@@ -19,6 +19,8 @@ namespace DominoGame
           }
           writer.WriteLine("");
         }
+        
+        writer.WriteLine("Covers: " + board.CoveredCells + " cells.");
       }
     }
   }

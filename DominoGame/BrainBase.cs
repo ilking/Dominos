@@ -20,36 +20,13 @@ namespace DominoGame
     {
       if (pips == 0) return true;
       
-      bool result = true;
       Cell cell = board.CellAt(x,y);
-      Cell check = null;
-
-      foreach (Direction dir in dirs) {
-        switch (dir) {
-          case Direction.UP:
-            check = board.CellAt(x, y-1);
-            break;
-          case Direction.DOWN:
-            check = board.CellAt(x, y+1);
-            break;
-          case Direction.LEFT:
-            check = board.CellAt(x-1, y);
-            break;
-          case Direction.RIGHT:
-            check = board.CellAt(x+1, y);
-            break;
-        }
-        
-        if (check != null) {
-          if (check.IsOccupied()) {
-            result = result && (check.Pips == pips);
-          } else {
-            result = result && true;
-          }
-        }
-      } 
       
-      return result;
+      foreach (Cell neighbor in board.OccupiedNeighbors(cell)) {
+        if (neighbor.Pips != 0 && neighbor.Pips != pips) return false;
+      }
+      
+      return true;
     }
   }
 }
