@@ -11,7 +11,6 @@ namespace DominoGame
     public override void Parse(List<List<int>> input) {
       board = new Board(input.Count, input[0].Count);
       
-      // Populate board with all input pips.
       for (int x = 0; x < board.Width; x++) {
         for (int y = 0; y < board.Height; y++) {
           int pips = input[x][y];
@@ -46,7 +45,7 @@ namespace DominoGame
           }
         }
         
-        Console.WriteLine(board);
+        //Console.WriteLine(board);
       }
     } 
   }
